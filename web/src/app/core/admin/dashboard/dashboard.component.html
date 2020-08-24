@@ -1,0 +1,328 @@
+<div class="header pb-6">
+  <div class="container-fluid">
+    <div class="header-body">
+      <div class="row align-items-center py-4">
+        <div class="col-lg-6 col-7">
+          <h6 class="h2 text-dark d-inline-block mb-0">Dashboard</h6>
+
+          <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+            <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+              <li class="breadcrumb-item">
+                <a href="javascript:void(0)">
+                  <i class="fas fa-home text-dark"> </i>
+                </a>
+              </li>
+            </ol>
+          </nav>
+        </div>
+
+        <!-- <div class="col-lg-6 col-5 text-right">
+          <a class="btn btn-sm btn-neutral" href="javascript:void(0)"> New </a>
+
+          <a class="btn btn-sm btn-neutral" href="javascript:void(0)">
+            Filters
+          </a>
+        </div> -->
+      </div>
+
+      <div class="row">
+        <div class="col-xl-3 col-md-6">
+          <div class="card card-stats">
+            <div class="card-body">
+              <div class="row">
+                <div class="col text-center">
+                  <h5
+                    class="card-title text-uppercase text-muted mb-0 text-center"
+                  >
+                    Total File
+                  </h5>
+                  <br />
+
+                  <span class="h2 font-weight-bold mb-0 text-center"> 50 </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+          <div class="card card-stats">
+            <div class="card-body">
+              <div class="row">
+                <div class="col text-center">
+                  <h5
+                    class="card-title text-uppercase text-muted mb-0 text-center"
+                  >
+                    Total Project
+                  </h5>
+                  <br />
+
+                  <span class="h2 font-weight-bold mb-0 text-center"> 32 </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+          <div class="card card-stats">
+            <div class="card-body">
+              <div class="row">
+                <div class="col text-center">
+                  <h5
+                    class="card-title text-uppercase text-muted mb-0 text-center"
+                  >
+                    Pending Project
+                  </h5>
+                  <br />
+
+                  <span class="h2 font-weight-bold mb-0 text-center"> 5 </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+          <div class="card card-stats">
+            <div class="card-body">
+              <div class="row">
+                <div class="col text-center">
+                  <h5
+                    class="card-title text-uppercase text-muted mb-0 text-center"
+                  >
+                    Completed Project
+                  </h5>
+                  <br />
+
+                  <span class="h2 font-weight-bold mb-0 text-center"> 2 </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid mt--6">
+
+  <div class="row">
+    <div class="col-md-5">
+      <div class="card">
+        <div class="card-header bg-secondary">
+          <div class="row align-items-center">
+            <div class="col">
+              <h6 class="text-muted text-uppercase ls-1 mb-1">Chart</h6>
+
+              <h5 class="h3 mb-0">Task</h5>
+            </div>
+          </div>
+        </div>
+        <div class="chart">
+          <div class="amchart" id="chartdivdashboard3"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-7">
+      <div class="card">
+        <div class="card-header bg-secondary">
+          <div class="row align-items-center">
+            <div class="col">
+              <h6 class="text-muted text-uppercase ls-1 mb-1">Chart</h6>
+
+              <h5 class="h3 mb-0">Workload</h5>
+            </div>
+          </div>
+        </div>
+        <div class="chart">
+          <div class="amchart" id="chartdivdashboard4"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xl-8">
+      <div class="card">
+        <div class="card-header bg-secondary">
+          <div class="row align-items-center">
+            <div class="col">
+              <h6 class="text-muted text-uppercase ls-1 mb-1">Chart</h6>
+              <h5 class="h3 mb-0">Time</h5>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="chart">
+            <div class="amchart" id="chartdivdashboard5"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-4">
+      <div class="card">
+        <div class="card-header bg-secondary">
+          <div class="row align-items-center">
+            <div class="col">
+              <h6 class="text-muted text-uppercase ls-1 mb-1">Chart</h6>
+
+              <h5 class="h3 mb-0">Time Spend On Project</h5>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <div class="chart">
+            <div class="amchart" id="chartdivdashboard1"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-header bg-secondary">
+          <h3 class="m-0">List Of Project</h3>
+        </div>
+        <div class="dataTables_wrapper py-4">
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+              <div class="dataTables_length" id="datatable_length">
+                <label>
+                  Show
+                  <select
+                    name="datatable_length"
+                    aria-controls="datatable"
+                    class="form-control form-control-sm"
+                    (change)="entriesChange($event)"
+                  >
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="-1">All</option>
+                  </select>
+                  records
+                </label>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+              <!-- <div id="datatable_filter" class="dataTables_filter">
+                                  <label>
+                                    <input
+                                      type="search"
+                                      class="form-control form-control-sm"
+                                      placeholder="Search records"
+                                      aria-controls="datatable"
+                                      (keyup)="filterTable($event)"
+                                    />
+                                  </label>
+                                </div> -->
+            </div>
+          </div>
+
+          <ngx-datatable
+            class="bootstrap selection-cell"
+            [columnMode]="'force'"
+            [headerHeight]="50"
+            [footerHeight]="50"
+            [rowHeight]="'auto'"
+            [limit]="tableEntries != -1 ? tableEntries : undefined"
+            [rows]="listProject"
+            (activate)="onActivate($event)"
+          >
+            <ngx-datatable-column name="No">
+              <ng-template
+                let-rowIndex="rowIndex"
+                let-row="row"
+                ngx-datatable-cell-template
+              >
+                <strong>{{ rowIndex + 1 }}</strong>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column>
+              <ng-template ngx-datatable-header-template>
+                <span>Name</span>
+              </ng-template>
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row.name }}
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column>
+              <ng-template ngx-datatable-header-template>
+                <span>Start Data</span>
+              </ng-template>
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row.start_date | date: "dd/MM/yyyy" }}
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column>
+              <ng-template ngx-datatable-header-template>
+                <span>Expected Completion Date</span>
+              </ng-template>
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row.expected_completion_date | date: "dd/MM/yyyy" }}
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column>
+              <ng-template ngx-datatable-header-template>
+                <span>Created</span>
+              </ng-template>
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row.created_at | date: "dd/MM/yyyy" }}
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column>
+              <ng-template ngx-datatable-header-template>
+                <span>Status</span>
+              </ng-template>
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                <span *ngIf="row.status == 'CO'" class="badge badge-success"
+                  >Completed</span
+                >
+                <span *ngIf="row.status == 'OG'" class="badge badge-warning"
+                  >On-Going</span
+                >
+                <span *ngIf="row.status == 'PE'" class="badge badge-danger"
+                  >Pending</span
+                >
+              </ng-template>
+            </ngx-datatable-column>
+
+            <!-- <ngx-datatable-column>
+              <ng-template ngx-datatable-header-template>
+                <span>Action</span>
+              </ng-template>
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                <a
+                  (click)="navigatePage('/admin/project-details', row.id)"
+                  style="cursor: pointer;"
+                >
+                  <button class="btn btn-sm btn-warning">
+                    <i class="fas fa-eye"></i>
+                  </button> </a
+                >&nbsp;&nbsp;
+                <a (click)="openModal(editModal, row)" style="cursor: pointer;">
+                  <button class="btn btn-sm btn-info">
+                    <i class="fas fa-edit"></i>
+                  </button> </a
+                >&nbsp;&nbsp;
+                <a (click)="confirm()" style="cursor: pointer;">
+                  <button class="btn btn-sm btn-danger">
+                    <i class="fas fa-trash-alt"></i>
+                  </button>
+                </a>
+              </ng-template>
+            </ngx-datatable-column> -->
+          </ngx-datatable>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

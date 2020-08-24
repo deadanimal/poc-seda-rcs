@@ -1,0 +1,497 @@
+<div class="header pb-6">
+  <div class="container-fluid">
+    <div class="header-body">
+      <div class="row align-items-center py-4">
+        <div class="col-lg-6 col-7">
+          <h6 class="h2 text-dark d-inline-block mb-0">
+            Comment Details
+          </h6>
+          <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+            <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+              <li class="breadcrumb-item">
+                <a href="javascript:void(0)">
+                  <i class="fas fa-file text-dark"></i>
+                </a>
+              </li>
+            </ol>
+          </nav>
+        </div>
+        <div class="col-lg-6 col-5 text-right">
+          <!-- <a
+                  href="javascript:void(0)"
+                  class="btn btn-sm btn-default"
+                  (click)="openModal(addModal, undefined)"
+                >
+                  Add Comment
+                </a> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid mt--6">
+  <!-- <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-3">
+              <label>Comment Name</label>
+            </div>
+            <div class="col-md-3">:&nbsp;&nbsp;{{ listComment.comment }}</div>
+            <div class="col-md-3">
+              <label></label>
+            </div>
+            <div class="col-md-3">
+              &nbsp;&nbsp;
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <div class="row">
+    <div class="col-md-4">
+      <div *ngFor="let item of listComment">
+        <div
+          class="card"
+          *ngIf="item.phase == 1"
+          style="cursor: pointer;"
+          (click)="openModal(viewModal, item)"
+        >
+          <div class="card-header bg-success">
+            <div class="row">
+              <div
+                class="col"
+                *ngIf="
+                  item.project_id == 'a013e6be-52b1-4dd1-abf3-0a9870c64385'
+                "
+              >
+                <h3 class="m-0">project 1</h3>
+              </div>
+              <div
+                class="col"
+                *ngIf="
+                  item.project_id == 'c3f0c600-1df5-4147-bda3-7d7349f79923'
+                "
+              >
+                <h3 class="m-0">project 2</h3>
+              </div>
+              <div
+                class="col"
+                *ngIf="
+                  item.project_id == '6d5bb2f6-4144-4e7c-a402-27b8afe76406'
+                "
+              >
+                <h3 class="m-0">Projek Penambahan Sayur-sayuran</h3>
+              </div>
+              <div class="col">
+                <small class="m-0 text-sm text-black">{{
+                  item.created_date | date: "dd/MM/yyyy hh:mm a"
+                }}</small>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div>{{ item.comment }}</div>
+            <div class="text-right">
+              <small class="m-0 text-sm">Commented By : Admin</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div *ngFor="let item of listComment">
+        <div
+          class="card"
+          *ngIf="item.phase == 2"
+          style="cursor: pointer;"
+          (click)="openModal(viewModal, item)"
+        >
+          <div class="card-header bg-info">
+            <div class="row">
+              <div
+                class="col"
+                *ngIf="
+                  item.project_id == 'a013e6be-52b1-4dd1-abf3-0a9870c64385'
+                "
+              >
+                <h3 class="m-0">project 1</h3>
+              </div>
+              <div
+                class="col"
+                *ngIf="
+                  item.project_id == 'c3f0c600-1df5-4147-bda3-7d7349f79923'
+                "
+              >
+                <h3 class="m-0">project 2</h3>
+              </div>
+              <div
+                class="col"
+                *ngIf="
+                  item.project_id == '6d5bb2f6-4144-4e7c-a402-27b8afe76406'
+                "
+              >
+                <h3 class="m-0">Projek Penambahan Sayur-sayuran</h3>
+              </div>
+              <div class="col">
+                <small class="m-0 text-sm text-black">{{
+                  item.created_date | date: "dd/MM/yyyy hh:mm a"
+                }}</small>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div>{{ item.comment }}</div>
+            <div class="text-right">
+              <small class="m-0 text-sm">Commented By : Admin</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div *ngFor="let item of listComment">
+        <div
+          class="card"
+          *ngIf="item.phase == 3"
+          style="cursor: pointer;"
+          (click)="openModal(viewModal, item)"
+        >
+          <div class="card-header bg-danger">
+            <div class="row">
+              <div
+                class="col"
+                *ngIf="
+                  item.project_id == 'a013e6be-52b1-4dd1-abf3-0a9870c64385'
+                "
+              >
+                <h3 class="m-0">project 1</h3>
+              </div>
+              <div
+                class="col"
+                *ngIf="
+                  item.project_id == 'c3f0c600-1df5-4147-bda3-7d7349f79923'
+                "
+              >
+                <h3 class="m-0">project 2</h3>
+              </div>
+              <div
+                class="col"
+                *ngIf="
+                  item.project_id == '6d5bb2f6-4144-4e7c-a402-27b8afe76406'
+                "
+              >
+                <h3 class="m-0">Projek Penambahan Sayur-sayuran</h3>
+              </div>
+              <div class="col">
+                <small class="m-0 text-sm text-black">{{
+                  item.created_date | date: "dd/MM/yyyy hh:mm a"
+                }}</small>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div>{{ item.comment }}</div>
+            <div class="text-right">
+              <small class="m-0 text-sm">Commented By : Admin</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #addModal>
+  <div class="modal-header bg-default">
+    <h6 class="modal-title text-white my-auto" id="modal-title-default">
+      Add Comment
+    </h6>
+
+    <button
+      aria-label="Close"
+      class="close"
+      data-dismiss="modal"
+      type="button"
+      (click)="closeModal()"
+    >
+      <span aria-hidden="true" class="text-white my-auto"> × </span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="addCommentDetailsForm">
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label class="form-control-label">Name</label>
+            <input
+              class="form-control"
+              placeholder="Enter Name"
+              formControlName="name"
+            />
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label class="form-control-label">Start Date</label>
+            <input
+              class="form-control"
+              placeholder="Enter Start Date"
+              formControlName="start_date"
+              type="datetime-local"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label class="form-control-label">Expected Completion Date</label>
+            <input
+              class="form-control"
+              placeholder="Enter Expected Completion Date"
+              formControlName="expected_completion_date"
+              type="datetime-local"
+            />
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label class="form-control-label">Comment Period</label>
+            <input
+              class="form-control"
+              placeholder="Enter Comment Period"
+              formControlName="Comment_timeframe"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label class="form-control-label">Department</label>
+            <input
+              class="form-control"
+              placeholder="Enter Department"
+              formControlName="department"
+            />
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label class="form-control-label">Comment Owner</label>
+            <input
+              class="form-control"
+              placeholder="Enter Comment Owner"
+              formControlName="owner_Comment"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label class="form-control-label">Source Of Fund</label>
+            <input
+              class="form-control"
+              placeholder="Enter Source Of Fund"
+              formControlName="source_of_fund"
+            />
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label class="form-control-label">Cost Comment</label>
+            <input
+              class="form-control"
+              placeholder="Enter Cost Comment"
+              formControlName="Comment_cost"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="form-control-label">Person In Charge</label>
+            <input
+              class="form-control"
+              placeholder="Enter Person In Charge"
+              formControlName="pic"
+            />
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <div class="text-center">
+      <button class="btn btn-default" (click)="addCommentDetails()">
+        Save
+      </button>
+      <button
+        class="btn btn-outline-danger ml-auto"
+        data-dismiss="modal"
+        type="button"
+        (click)="closeModal()"
+      >
+        Close
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #editModal>
+  <div class="modal-header bg-default">
+    <h6 class="modal-title text-white my-auto" id="modal-title-default">
+      Edit Comment
+    </h6>
+
+    <button
+      aria-label="Close"
+      class="close"
+      data-dismiss="modal"
+      type="button"
+      (click)="closeModal()"
+    >
+      <span aria-hidden="true" class="text-white my-auto"> × </span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="editCommentDetailsForm">
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label class="form-control-label">Name</label>
+            <input
+              class="form-control"
+              placeholder="Enter Name"
+              formControlName="name"
+            />
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label class="form-control-label">Start Date</label>
+            <input
+              class="form-control"
+              placeholder="Enter Start Date"
+              formControlName="start_date"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label class="form-control-label">Expected Completion Date</label>
+            <input
+              class="form-control"
+              placeholder="Enter Expected Completion Date"
+              formControlName="expected_completion_date"
+            />
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label class="form-control-label">Comment Period</label>
+            <input
+              class="form-control"
+              placeholder="Enter Comment Period"
+              formControlName="Comment_timeframe"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label class="form-control-label">Department</label>
+            <input
+              class="form-control"
+              placeholder="Enter Department"
+              formControlName="department"
+            />
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label class="form-control-label">Comment Owner</label>
+            <input
+              class="form-control"
+              placeholder="Enter Comment Owner"
+              formControlName="owner_Comment"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label class="form-control-label">Source Of Fund</label>
+            <input
+              class="form-control"
+              placeholder="Enter Source Of Fund"
+              formControlName="source_of_fund"
+            />
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label class="form-control-label">Cost Comment</label>
+            <input
+              class="form-control"
+              placeholder="Enter Cost Comment"
+              formControlName="Comment_cost"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="form-control-label">Person In Charge</label>
+            <input
+              class="form-control"
+              placeholder="Enter Person In Charge"
+              formControlName="pic"
+            />
+          </div>
+        </div>
+      </div>
+      <input name="id" formControlName="id" type="hidden" />
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <div class="text-center">
+      <button class="btn btn-default" (click)="editCommentDetails()">
+        Save
+      </button>
+      <button
+        class="btn btn-outline-danger ml-auto"
+        data-dismiss="modal"
+        type="button"
+        (click)="closeModal()"
+      >
+        Close
+      </button>
+    </div>
+  </div>
+</ng-template>
