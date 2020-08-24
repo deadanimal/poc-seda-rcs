@@ -4,7 +4,7 @@
       <div class="row align-items-center py-4">
         <div class="col-lg-6 col-7">
           <h6 class="h2 text-dark d-inline-block mb-0">
-            Activity
+            Income
           </h6>
           <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
             <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
@@ -22,7 +22,7 @@
             class="btn btn-sm btn-default"
             (click)="openModal(addModal, undefined)"
           >
-            Add Activity
+            Add Income
           </a>
         </div>
       </div>
@@ -35,7 +35,7 @@
     <div class="col-md-6">
       <div class="card">
         <div class="card-header bg-secondary">
-          <h3 class="m-0">Activity</h3>
+          <h3 class="m-0">Fail</h3>
         </div>
         <div class="card-body">
           <div
@@ -48,7 +48,7 @@
     <div class="col-md-6">
       <div class="card">
         <div class="card-header bg-secondary">
-          <h3 class="m-0">Activity</h3>
+          <h3 class="m-0">Fail</h3>
         </div>
         <div class="card-body">
           <div
@@ -117,7 +117,7 @@
     <div class="col">
       <div class="card">
         <div class="card-header bg-secondary">
-          <h3 class="m-0">Activity</h3>
+          <h3 class="m-0">Income</h3>
         </div>
         <div class="dataTables_wrapper py-4">
           <div class="row">
@@ -162,7 +162,7 @@
             [footerHeight]="50"
             [rowHeight]="'auto'"
             [limit]="tableEntries != -1 ? tableEntries : undefined"
-            [rows]="listActivity"
+            [rows]="listExpenses"
             (activate)="onActivate($event)"
           >
             <ngx-datatable-column name="No">
@@ -177,7 +177,7 @@
 
             <ngx-datatable-column>
               <ng-template ngx-datatable-header-template>
-                <span>Activity</span>
+                <span>Name</span>
               </ng-template>
               <ng-template let-row="row" ngx-datatable-cell-template>
                 {{ row.name }}
@@ -186,28 +186,10 @@
 
             <ngx-datatable-column>
               <ng-template ngx-datatable-header-template>
-                <span>Description</span>
+                <span>Amount (RM)</span>
               </ng-template>
               <ng-template let-row="row" ngx-datatable-cell-template>
-                {{ row.activity_desc }}
-              </ng-template>
-            </ngx-datatable-column>
-
-            <ngx-datatable-column>
-              <ng-template ngx-datatable-header-template>
-                <span>Location</span>
-              </ng-template>
-              <ng-template let-row="row" ngx-datatable-cell-template>
-                {{ row.location }}
-              </ng-template>
-            </ngx-datatable-column>
-
-            <ngx-datatable-column>
-              <ng-template ngx-datatable-header-template>
-                <span>Activity Level</span>
-              </ng-template>
-              <ng-template let-row="row" ngx-datatable-cell-template>
-                {{ row.activity_level }}
+                {{ row.amount }}
               </ng-template>
             </ngx-datatable-column>
 
@@ -222,11 +204,20 @@
 
             <ngx-datatable-column>
               <ng-template ngx-datatable-header-template>
+                <span>Modified</span>
+              </ng-template>
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row.modified_date | date: "dd/MM/yyyy" }}
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column>
+              <ng-template ngx-datatable-header-template>
                 <span>Action</span>
               </ng-template>
               <ng-template let-row="row" ngx-datatable-cell-template>
                 <a
-                  (click)="navigatePage('/admin/activity-details', row.id)"
+                  (click)="navigatePage('/admin/fail-details', row.id)"
                   style="cursor: pointer;"
                 >
                   <button class="btn btn-sm btn-warning">
@@ -252,10 +243,90 @@
   </div>
 </div>
 
+<ng-template #viewModal>
+  <div class="modal-header bg-default">
+    <h6 class="modal-title text-white my-auto" id="modal-title-default">
+      View Image
+    </h6>
+
+    <button
+      aria-label="Close"
+      class="close"
+      data-dismiss="modal"
+      type="button"
+      (click)="closeModal()"
+    >
+      <span aria-hidden="true" class="text-white my-auto"> × </span>
+    </button>
+  </div>
+
+  <!-- <div class="modal-body"> -->
+  <img style="cursor: pointer;" [src]="modaldata.image" style="width: 100%;" />
+  <!-- </div> -->
+
+  <div class="modal-footer">
+    <div class="text-center">
+      <button class="btn btn-default" (click)="successAlert('print image')">
+        Save
+      </button>
+      <button
+        class="btn btn-outline-danger ml-auto"
+        data-dismiss="modal"
+        type="button"
+        (click)="closeModal()"
+      >
+        Close
+      </button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #viewModal1>
+  <div class="modal-header bg-default">
+    <h6 class="modal-title text-white my-auto" id="modal-title-default">
+      View Image
+    </h6>
+
+    <button
+      aria-label="Close"
+      class="close"
+      data-dismiss="modal"
+      type="button"
+      (click)="closeModal()"
+    >
+      <span aria-hidden="true" class="text-white my-auto"> × </span>
+    </button>
+  </div>
+
+  <!-- <div class="modal-body"> -->
+  <img
+    style="cursor: pointer;"
+    [src]="modaldata.document"
+    style="width: 100%;"
+  />
+  <!-- </div> -->
+
+  <div class="modal-footer">
+    <div class="text-center">
+      <button class="btn btn-default" (click)="successAlert('print image')">
+        Save
+      </button>
+      <button
+        class="btn btn-outline-danger ml-auto"
+        data-dismiss="modal"
+        type="button"
+        (click)="closeModal()"
+      >
+        Close
+      </button>
+    </div>
+  </div>
+</ng-template>
+
 <ng-template #addModal>
   <div class="modal-header bg-default">
     <h6 class="modal-title text-white my-auto" id="modal-title-default">
-      Add Activity
+      Add Income
     </h6>
 
     <button
@@ -270,145 +341,29 @@
   </div>
 
   <div class="modal-body">
-    <form [formGroup]="createactivitydetailsform">
-      <div class="row">
-        <div class="col">
-          <div class="form-group">
-            <label class="form-control-label">Name</label>
-            <input
-              class="form-control"
-              placeholder="Enter Name"
-              formControlName="name"
-            />
-          </div>
-        </div>
-        <div class="col">
-          <div class="form-group">
-            <label class="form-control-label">Description</label>
-            <input
-              class="form-control"
-              placeholder="Enter Description"
-              formControlName="activity_desc"
-            />
-          </div>
-        </div>
+    <form [formGroup]="createExpensesDetailsForm">
+      <div class="form-group">
+        <label class="form-control-label">Name</label>
+        <input
+          class="form-control"
+          placeholder="Enter Name"
+          formControlName="name"
+        />
       </div>
-
-      <div class="row">
-        <div class="col">
-          <div class="form-group">
-            <label class="form-control-label">Location</label>
-            <input
-              class="form-control"
-              placeholder="Enter Location"
-              formControlName="location"
-            />
-          </div>
-        </div>
-        <div class="col">
-          <div class="form-group">
-            <label class="form-control-label">Activity Level</label>
-            <input
-              class="form-control"
-              placeholder="Enter Activity Level"
-              formControlName="activity_level"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col">
-          <div class="form-group">
-            <label class="form-control-label">Start Date</label>
-            <input
-              class="form-control"
-              placeholder="Enter Start Date"
-              formControlName="start_date"
-              type="datetime-local"
-            />
-          </div>
-        </div>
-        <div class="col">
-          <div class="form-group">
-            <label class="form-control-label">End Date</label>
-            <input
-              class="form-control"
-              placeholder="Enter End Date"
-              formControlName="expected_completion_date"
-              type="datetime-local"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col">
-          <div class="form-group">
-            <label class="form-control-label">Activity Timeframe</label>
-            <input
-              class="form-control"
-              placeholder="Enter Activity Timeframe"
-              formControlName="project_timeframe"
-            />
-          </div>
-        </div>
-        <div class="col">
-          <div class="form-group">
-            <label class="form-control-label">Activity Cost</label>
-            <input
-              class="form-control"
-              placeholder="Enter Activity Cost"
-              formControlName="activity_cost"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label class="form-control-label">Progress Level</label>
-            <input
-              class="form-control"
-              placeholder="Enter Progress Level"
-              formControlName="progress_level"
-            />
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label class="form-control-label">Person In Charge</label>
-            <input
-              class="form-control"
-              placeholder="Enter Person In Charge"
-              formControlName="pic"
-            />
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label class="form-control-label">Project</label>
-            <select
-              class="form-control"
-              placeholder="Enter Fail Period"
-              formControlName="project_id"
-            >
-              <option *ngFor="let list of listProject" [value]="list.id">{{
-                list.name
-              }}</option>
-            </select>
-          </div>
-        </div>
+      <div class="form-group">
+        <label class="form-control-label">Amount (RM)</label>
+        <input
+          class="form-control"
+          placeholder="Enter Amount"
+          formControlName="amount"
+        />
       </div>
     </form>
   </div>
 
   <div class="modal-footer">
     <div class="text-center">
-      <button class="btn btn-default" (click)="createDetailsActivity()">
+      <button class="btn btn-default" (click)="createDetailsFail()">
         Save
       </button>
       <button
@@ -426,7 +381,7 @@
 <ng-template #editModal>
   <div class="modal-header bg-default">
     <h6 class="modal-title text-white my-auto" id="modal-title-default">
-      Edit Activity
+      Edit Income
     </h6>
 
     <button
@@ -441,138 +396,22 @@
   </div>
 
   <div class="modal-body">
-    <form [formGroup]="activityDetailsEditForm">
-      <div class="row">
-        <div class="col">
-          <div class="form-group">
-            <label class="form-control-label">Name</label>
-            <input
-              class="form-control"
-              placeholder="Enter Name"
-              formControlName="name"
-            />
-          </div>
-        </div>
-        <div class="col">
-          <div class="form-group">
-            <label class="form-control-label">Description</label>
-            <input
-              class="form-control"
-              placeholder="Enter Description"
-              formControlName="activity_desc"
-            />
-          </div>
-        </div>
+    <form [formGroup]="editExpensesDetailsForm">
+      <div class="form-group">
+        <label class="form-control-label">Name</label>
+        <input
+          class="form-control"
+          placeholder="Enter Name"
+          formControlName="name"
+        />
       </div>
-
-      <div class="row">
-        <div class="col">
-          <div class="form-group">
-            <label class="form-control-label">Location</label>
-            <input
-              class="form-control"
-              placeholder="Enter Location"
-              formControlName="location"
-            />
-          </div>
-        </div>
-        <div class="col">
-          <div class="form-group">
-            <label class="form-control-label">Activity Level</label>
-            <input
-              class="form-control"
-              placeholder="Enter Activity Level"
-              formControlName="activity_level"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col">
-          <div class="form-group">
-            <label class="form-control-label">Start Date</label>
-            <input
-              class="form-control"
-              placeholder="Enter Start Date"
-              formControlName="start_date"
-              type="datetime-local"
-            />
-          </div>
-        </div>
-        <div class="col">
-          <div class="form-group">
-            <label class="form-control-label">End Date</label>
-            <input
-              class="form-control"
-              placeholder="Enter End Date"
-              formControlName="expected_completion_date"
-              type="datetime-local"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col">
-          <div class="form-group">
-            <label class="form-control-label">Activity Timeframe</label>
-            <input
-              class="form-control"
-              placeholder="Enter Activity Timeframe"
-              formControlName="project_timeframe"
-            />
-          </div>
-        </div>
-        <div class="col">
-          <div class="form-group">
-            <label class="form-control-label">Activity Cost</label>
-            <input
-              class="form-control"
-              placeholder="Enter Activity Cost"
-              formControlName="activity_cost"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label class="form-control-label">Progress Level</label>
-            <input
-              class="form-control"
-              placeholder="Enter Progress Level"
-              formControlName="progress_level"
-            />
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label class="form-control-label">Person In Charge</label>
-            <input
-              class="form-control"
-              placeholder="Enter Person In Charge"
-              formControlName="pic"
-            />
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label class="form-control-label">Project</label>
-            <select
-              class="form-control"
-              placeholder="Enter Fail Period"
-              formControlName="project_id"
-            >
-              <option *ngFor="let list of listProject" [value]="list.id">{{
-                list.name
-              }}</option>
-            </select>
-          </div>
-        </div>
+      <div class="form-group">
+        <label class="form-control-label">Amount (RM)</label>
+        <input
+          class="form-control"
+          placeholder="Enter Amount"
+          formControlName="amount"
+        />
       </div>
       <input name="id" formControlName="id" type="hidden" />
     </form>
@@ -580,7 +419,7 @@
 
   <div class="modal-footer">
     <div class="text-center">
-      <button class="btn btn-default" (click)="editDetailsActivity()">
+      <button class="btn btn-default" (click)="editDetailsFail()">
         Save
       </button>
       <button

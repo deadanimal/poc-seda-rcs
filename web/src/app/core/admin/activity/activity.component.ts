@@ -27,15 +27,10 @@ import { AuthService } from "src/app/shared/services/auth/auth.service";
 import { NotifyService } from "src/app/shared/handler/notify/notify.service";
 import { Router, ActivatedRoute } from "@angular/router";
 
-import { Fail } from "src/app/shared/services/fail/fail.model";
-import { FailService } from "src/app/shared/services/fail/fail.service";
+import { Expenses } from "src/app/shared/services/expenses/expenses.model";
+import { ExpensesService } from "src/app/shared/services/expenses/expenses.service";
 
-// import { Project } from "src/app/shared/services/project/project.model";
-// import { ProjectService } from "src/app/shared/services/project/project.service";
-
-import { Activity } from "src/app/shared/services/activity/activity.model";
-import { ActivityService } from "src/app/shared/services/activity/activity.service";
-
+import { Project } from "src/app/shared/services/project/project.model";
 import { ProjectService } from "src/app/shared/services/project/project.service";
 
 export enum SelectionType {
@@ -76,19 +71,20 @@ export class ActivityComponent implements OnInit, OnDestroy {
   tableSelected: any[] = [];
   tableTemp = [];
   tableActiveRow: any;
-  tableRows: Activity[] = [];
+  tableRows: Expenses[] = [];
   SelectionType = SelectionType;
-  listActivity: any;
+  listExpenses: any;
   listProject: any;
+  modaldata: any;
 
   // Form
   searchForm: FormGroup;
   searchField: FormGroup;
-  createactivitydetailsform: FormGroup;
-  activityDetailsEditForm: FormGroup;
+  createExpensesDetailsForm: FormGroup;
+  editExpensesDetailsForm: FormGroup;
 
   constructor(
-    private ActivityData: ActivityService,
+    private ExpensesData: ExpensesService,
     private projectData: ProjectService,
     private notifyService: NotifyService,
     private zone: NgZone,
@@ -101,11 +97,11 @@ export class ActivityComponent implements OnInit, OnDestroy {
   ) {
     // this.getData();
 
-    this.ActivityData.getAll().subscribe((res) => {
-      this.listActivity = res;
+    this.ExpensesData.getAll().subscribe((res) => {
+      this.listExpenses = res;
       this.tableRows = [...res];
 
-      console.log("Activity = ", this.listActivity);
+      console.log("fail = ", this.listExpenses);
       // this.listLicense = this.tableRows.map((proßp, key) => {
       //   // console.log("test =>", prop, key);
       //   return {
@@ -124,54 +120,73 @@ export class ActivityComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // this.getCharts();
 
-    this.createactivitydetailsform = this.formBuilder.group({
+    this.createExpensesDetailsForm = this.formBuilder.group({
       name: new FormControl(""),
-      activity_desc: new FormControl(""),
-      location: new FormControl(""),
-      activity_level: new FormControl(""),
-      start_date: new FormControl(""),
-      expected_completion_date: new FormControl(""),
-      project_timeframe: new FormControl(""),
-      activity_cost: new FormControl(""),
-      progress_level: new FormControl(""),
-      project_id: new FormControl(""),
-      pic: new FormControl(""),
+      amount: new FormControl(""),
       created_date: new FormControl(""),
       modified_date: new FormControl(""),
     });
 
-    this.activityDetailsEditForm = this.formBuilder.group({
+    this.editExpensesDetailsForm = this.formBuilder.group({
       id: new FormControl(""),
       name: new FormControl(""),
-      activity_desc: new FormControl(""),
-      location: new FormControl(""),
-      activity_level: new FormControl(""),
-      start_date: new FormControl(""),
-      expected_completion_date: new FormControl(""),
-      project_timeframe: new FormControl(""),
-      activity_cost: new FormControl(""),
-      progress_level: new FormControl(""),
-      pic: new FormControl(""),
-      project_id: new FormControl(""),
-      // created_date: new FormControl(""),
-      // modified_date: new FormControl(""),
+      amount: new FormControl(""),
+      created_date: new FormControl(""),
+      modified_date: new FormControl(""),
     });
   }
 
-  createDetailsActivity() {
-    console.log(this.createactivitydetailsform.value);
+  onImageChange(event) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.createExpensesDetailsForm.get("image").setValue(file);
+    }
+  }
+
+  onDocumentChange(event) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.createExpensesDetailsForm.get("document").setValue(file);
+    }
+  }
+
+  // onImageChange2(event) {
+  //   if (event.target.files.length > 0) {
+  //     const file = event.target.files[0];
+  //     this.createExpensesDetailsForm.get("image").setValue(file);
+  //   }
+  // }
+
+  // onDocumentChange2(event) {
+  //   if (event.target.files.length > 0) {
+  //     const file = event.target.files[0];
+  //     this.createExpensesDetailsForm.get("document").setValue(file);
+  //   }
+  // }
+
+  createDetailsFail() {
+    console.log(this.createExpensesDetailsForm);
     this.loadingBar.start();
-    this.ActivityData.create(this.createactivitydetailsform.value).subscribe(
+
+    // const formData = new FormData();
+    // formData.append("name", this.createExpensesDetailsForm.get("name").value);
+    // formData.append("image", this.createExpensesDetailsForm.get("image").value);
+    // formData.append(
+    //   "document",
+    //   this.createExpensesDetailsForm.get("document").value
+    // );
+
+    this.ExpensesData.create(this.createExpensesDetailsForm.value).subscribe(
       () => {
         // Success
         // this.isLoading = false
         // this.successMessage();
         this.loadingBar.complete();
-        this.successAlert("create Activity");
+        this.successAlert("create Fail");
         window.location.reload();
       },
       () => {
-        // Activityed
+        // Failed
         // this.isLoading = false
         // this.successMessage();
         this.errorAlert("edit");
@@ -184,24 +199,24 @@ export class ActivityComponent implements OnInit, OnDestroy {
     );
   }
 
-  editDetailsActivity() {
+  editDetailsFail() {
     // console.log("qqqq");
     this.loadingBar.start();
-    this.ActivityData.update(
-      this.activityDetailsEditForm.value.id,
-      this.activityDetailsEditForm.value
+    this.ExpensesData.update(
+      this.editExpensesDetailsForm.value.id,
+      this.editExpensesDetailsForm.value
     ).subscribe(
       () => {
         // Success
         // this.isLoading = false
         // this.successMessage();
         this.loadingBar.complete();
-        this.successAlert("edit Activity");
+        this.successAlert("edit Fail");
         console.log("asdasdasdsad");
         window.location.reload();
       },
       () => {
-        // Activityed
+        // Failed
         // this.isLoading = false
         // this.successMessage();
         this.errorAlert("edit");
@@ -225,25 +240,28 @@ export class ActivityComponent implements OnInit, OnDestroy {
   openModal(modalRef: TemplateRef<any>, row) {
     if (row) {
       console.log(row);
-      this.activityDetailsEditForm.patchValue(row);
+      this.editExpensesDetailsForm.patchValue(row);
+      console.log(this.editExpensesDetailsForm.value);
     }
-    this.modal = this.modalService.show(
-      modalRef,
-      Object.assign({}, { class: "gray modal-lg" })
-    );
-    // this.modal = this.modalService.show(modalRef, this.modalConfig);
+    // this.modal = this.modalService.show(
+    //   modalRef,
+    //   Object.assign({}, { class: "gray modal-lg" })
+    // );
+    this.modaldata = row;
+    console.log(this.modaldata);
+    this.modal = this.modalService.show(modalRef, this.modalConfig);
   }
 
   closeModal() {
     this.modal.hide();
-    this.activityDetailsEditForm.reset();
+    this.editExpensesDetailsForm.reset();
   }
 
   navigatePage(path: String, id) {
     // let qq = "db17a36a-1da6-4919-9746-dfed8802ec9d";
     console.log(id);
     console.log(path + "/" + id);
-    if (path == "/admin/activity-details") {
+    if (path == "/admin/fail-details") {
       return this.router.navigate([path, id]);
     }
   }

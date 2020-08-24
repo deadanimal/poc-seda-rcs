@@ -27,8 +27,8 @@ import { AuthService } from "src/app/shared/services/auth/auth.service";
 import { NotifyService } from "src/app/shared/handler/notify/notify.service";
 import { Router, ActivatedRoute } from "@angular/router";
 
-import { Fail } from "src/app/shared/services/fail/fail.model";
-import { FailService } from "src/app/shared/services/fail/fail.service";
+import { Income } from "src/app/shared/services/income/income.model";
+import { IncomeService } from "src/app/shared/services/income/income.service";
 
 import { Project } from "src/app/shared/services/project/project.model";
 import { ProjectService } from "src/app/shared/services/project/project.service";
@@ -71,20 +71,20 @@ export class FailComponent implements OnInit, OnDestroy {
   tableSelected: any[] = [];
   tableTemp = [];
   tableActiveRow: any;
-  tableRows: Fail[] = [];
+  tableRows: Income[] = [];
   SelectionType = SelectionType;
-  listFail: any;
+  listIncome: any;
   listProject: any;
   modaldata: any;
 
   // Form
   searchForm: FormGroup;
   searchField: FormGroup;
-  createFailDetailsForm: FormGroup;
-  editFailDetailsForm: FormGroup;
+  createIncomeDetailsForm: FormGroup;
+  editIncomeDetailsForm: FormGroup;
 
   constructor(
-    private failData: FailService,
+    private incomeData: IncomeService,
     private projectData: ProjectService,
     private notifyService: NotifyService,
     private zone: NgZone,
@@ -97,11 +97,11 @@ export class FailComponent implements OnInit, OnDestroy {
   ) {
     // this.getData();
 
-    this.failData.getAll().subscribe((res) => {
-      this.listFail = res;
+    this.incomeData.getAll().subscribe((res) => {
+      this.listIncome = res;
       this.tableRows = [...res];
 
-      console.log("fail = ", this.listFail);
+      console.log("fail = ", this.listIncome);
       // this.listLicense = this.tableRows.map((proßp, key) => {
       //   // console.log("test =>", prop, key);
       //   return {
@@ -120,21 +120,17 @@ export class FailComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // this.getCharts();
 
-    this.createFailDetailsForm = this.formBuilder.group({
+    this.createIncomeDetailsForm = this.formBuilder.group({
       name: new FormControl(""),
-      image: new FormControl(""),
-      document: new FormControl(""),
-      project_id: new FormControl(""),
+      amount: new FormControl(""),
       created_date: new FormControl(""),
       modified_date: new FormControl(""),
     });
 
-    this.editFailDetailsForm = this.formBuilder.group({
+    this.editIncomeDetailsForm = this.formBuilder.group({
       id: new FormControl(""),
       name: new FormControl(""),
-      // image: new FormControl(""),
-      // document: new FormControl(""),
-      project_id: new FormControl(""),
+      amount: new FormControl(""),
       created_date: new FormControl(""),
       modified_date: new FormControl(""),
     });
@@ -143,44 +139,44 @@ export class FailComponent implements OnInit, OnDestroy {
   onImageChange(event) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      this.createFailDetailsForm.get("image").setValue(file);
+      this.createIncomeDetailsForm.get("image").setValue(file);
     }
   }
 
   onDocumentChange(event) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      this.createFailDetailsForm.get("document").setValue(file);
+      this.createIncomeDetailsForm.get("document").setValue(file);
     }
   }
 
-  onImageChange2(event) {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      this.createFailDetailsForm.get("image").setValue(file);
-    }
-  }
+  // onImageChange2(event) {
+  //   if (event.target.files.length > 0) {
+  //     const file = event.target.files[0];
+  //     this.createIncomeDetailsForm.get("image").setValue(file);
+  //   }
+  // }
 
-  onDocumentChange2(event) {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      this.createFailDetailsForm.get("document").setValue(file);
-    }
-  }
+  // onDocumentChange2(event) {
+  //   if (event.target.files.length > 0) {
+  //     const file = event.target.files[0];
+  //     this.createIncomeDetailsForm.get("document").setValue(file);
+  //   }
+  // }
 
   createDetailsFail() {
-    console.log(this.createFailDetailsForm);
+    console.log(this.createIncomeDetailsForm);
     this.loadingBar.start();
 
-    const formData = new FormData();
-    formData.append("name", this.createFailDetailsForm.get("name").value);
-    formData.append("image", this.createFailDetailsForm.get("image").value);
-    formData.append(
-      "document",
-      this.createFailDetailsForm.get("document").value
-    );
+    // const formData = new FormData();
+    // formData.append("name", this.createIncomeDetailsForm.get("name").value);
+    // formData.append("image", this.createIncomeDetailsForm.get("image").value);
+    // formData.append(
+    //   "document",
+    //   this.createIncomeDetailsForm.get("document").value
+    // );
 
-    this.failData.create(formData).subscribe(
+    this.incomeData.create(this.createIncomeDetailsForm.value).subscribe(
       () => {
         // Success
         // this.isLoading = false
@@ -206,8 +202,11 @@ export class FailComponent implements OnInit, OnDestroy {
   editDetailsFail() {
     // console.log("qqqq");
     this.loadingBar.start();
-    this.failData
-      .update(this.editFailDetailsForm.value.id, this.editFailDetailsForm.value)
+    this.incomeData
+      .update(
+        this.editIncomeDetailsForm.value.id,
+        this.editIncomeDetailsForm.value
+      )
       .subscribe(
         () => {
           // Success
@@ -243,21 +242,21 @@ export class FailComponent implements OnInit, OnDestroy {
   openModal(modalRef: TemplateRef<any>, row) {
     if (row) {
       console.log(row);
-      this.editFailDetailsForm.patchValue(row);
-      console.log(this.editFailDetailsForm.value);
+      this.editIncomeDetailsForm.patchValue(row);
+      console.log(this.editIncomeDetailsForm.value);
     }
-    this.modal = this.modalService.show(
-      modalRef,
-      Object.assign({}, { class: "gray modal-lg" })
-    );
+    // this.modal = this.modalService.show(
+    //   modalRef,
+    //   Object.assign({}, { class: "gray modal-lg" })
+    // );
     this.modaldata = row;
     console.log(this.modaldata);
-    // this.modal = this.modalService.show(modalRef, this.modalConfig);
+    this.modal = this.modalService.show(modalRef, this.modalConfig);
   }
 
   closeModal() {
     this.modal.hide();
-    this.editFailDetailsForm.reset();
+    this.editIncomeDetailsForm.reset();
   }
 
   navigatePage(path: String, id) {
