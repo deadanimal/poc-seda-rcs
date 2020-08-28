@@ -27,8 +27,8 @@ import { AuthService } from "src/app/shared/services/auth/auth.service";
 import { NotifyService } from "src/app/shared/handler/notify/notify.service";
 import { Router, ActivatedRoute } from "@angular/router";
 
-import { Project } from "src/app/shared/services/project/project.model";
-import { ProjectService } from "src/app/shared/services/project/project.service";
+import { Ecashflowam } from "src/app/shared/services/ecashflowam/ecashflowam.model";
+import { EcashflowamService } from "src/app/shared/services/ecashflowam/ecashflowam.service";
 
 export enum SelectionType {
   single = "single",
@@ -68,18 +68,21 @@ export class ProjectComponent implements OnInit, OnDestroy {
   tableSelected: any[] = [];
   tableTemp = [];
   tableActiveRow: any;
-  tableRows: Project[] = [];
+  tableRows: Ecashflowam[] = [];
   SelectionType = SelectionType;
   listProject: any;
+
+  calcRom = 0;
 
   // Form
   searchForm: FormGroup;
   searchField: FormGroup;
+  calculateForm: FormGroup;
   addProjectDetailsForm: FormGroup;
   editProjectDetailsForm: FormGroup;
 
   constructor(
-    private projectData: ProjectService,
+    private ecashflowamData: EcashflowamService,
     private notifyService: NotifyService,
     private zone: NgZone,
     private modalService: BsModalService,
@@ -91,11 +94,11 @@ export class ProjectComponent implements OnInit, OnDestroy {
   ) {
     // this.getData();
 
-    this.projectData.getAll().subscribe((res) => {
+    this.ecashflowamData.getAll().subscribe((res) => {
       this.listProject = res;
       this.tableRows = [...res];
 
-      console.log("data = ", this.listProject);
+      // console.log("data = ", this.listProject);
       // this.listLicense = this.tableRows.map((proßp, key) => {
       //   // console.log("test =>", prop, key);
       //   return {
@@ -103,26 +106,17 @@ export class ProjectComponent implements OnInit, OnDestroy {
       //     // id: key,
       //   };
       // });
-      console.log("Svc: ", this.tableRows);
+      // console.log("Svc: ", this.tableRows);
     });
   }
 
   ngOnInit() {
     this.getCharts();
 
-    this.addProjectDetailsForm = this.formBuilder.group({
-      id: new FormControl(""),
-      name: new FormControl(""),
-      start_date: new FormControl(""),
-      expected_completion_date: new FormControl(""),
-      project_timeframe: new FormControl(""),
-      department: new FormControl(""),
-      owner_project: new FormControl(""),
-      source_of_fund: new FormControl(""),
-      project_cost: new FormControl(""),
-      pic: new FormControl(""),
-      created_date: new FormControl(""),
-      modified_date: new FormControl(""),
+    this.calculateForm = this.formBuilder.group({
+      tariff: new FormControl(""),
+      dc: new FormControl(""),
+      aydaaa: new FormControl(""),
     });
 
     this.editProjectDetailsForm = this.formBuilder.group({
@@ -140,11 +134,22 @@ export class ProjectComponent implements OnInit, OnDestroy {
       modified_date: new FormControl(""),
     });
   }
+  calculateROM() {
+    console.log(this.calculateForm.value);
+    this.calcRom =
+      (parseFloat(this.calculateForm.value.tariff) - 0.238) *
+      parseFloat(this.calculateForm.value.aydaaa);
+
+    // console.log(this.calculateForm.value.tariff);
+    // console.log(parseFloat(this.calculateForm.value.tariff));
+
+    // console.log(this.calcRom);
+  }
 
   addProjectDetails() {
     // console.log("qqqq");
     this.loadingBar.start();
-    this.projectData.create(this.addProjectDetailsForm.value).subscribe(
+    this.ecashflowamData.create(this.addProjectDetailsForm.value).subscribe(
       () => {
         // Success
         // this.isLoading = false
@@ -170,7 +175,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
   editProjectDetails() {
     // console.log("qqqq");
     this.loadingBar.start();
-    this.projectData
+    this.ecashflowamData
       .update(
         this.editProjectDetailsForm.value.id,
         this.editProjectDetailsForm.value
@@ -307,7 +312,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
       // this.getChart();
       // this.getChart1();
       // this.getChart2();
-      this.getChart3();
+      // this.getChart3();
       // this.getChart4();
       // this.getChart5();
       this.getChart6();
@@ -416,46 +421,68 @@ export class ProjectComponent implements OnInit, OnDestroy {
   }
 
   getChart6() {
+    // Create chart instance
     let chart = am4core.create("chartdivBillDelivery6", am4charts.PieChart);
+
+    // Export
+    chart.exporting.menu = new am4core.ExportMenu();
 
     // Add data
     chart.data = [
       {
-        status: "Project 1",
-        amount: 2,
+        country: "PAHANG",
+        litres: 501.9,
       },
       {
-        status: "Project 2",
-        amount: 5,
+        country: "JOHOR",
+        litres: 301.9,
       },
       {
-        status: "Project 3",
-        amount: 3,
+        country: "NEGERI SEMBILAN",
+        litres: 201.1,
       },
       {
-        status: "Project 4",
-        amount: 4,
+        country: "SELANGOR",
+        litres: 165.8,
+      },
+      {
+        country: "PERAK",
+        litres: 139.9,
+      },
+      {
+        country: "SABAH",
+        litres: 128.3,
+      },
+      {
+        country: "KELANTAN",
+        litres: 99,
+      },
+      {
+        country: "MELAKA",
+        litres: 60,
+      },
+      {
+        country: "PULAU PINANG",
+        litres: 50,
       },
     ];
 
     // Add and configure Series
     let pieSeries = chart.series.push(new am4charts.PieSeries());
-    pieSeries.dataFields.value = "amount";
-    pieSeries.dataFields.category = "status";
-    pieSeries.slices.template.stroke = am4core.color("#fff");
-    pieSeries.slices.template.strokeOpacity = 1;
+    pieSeries.dataFields.value = "litres";
+    pieSeries.dataFields.category = "country";
+    pieSeries.innerRadius = am4core.percent(50);
+    pieSeries.ticks.template.disabled = true;
+    pieSeries.labels.template.disabled = true;
 
-    pieSeries.alignLabels = false;
-    // pieSeries.labels.template.bent = true;
-    pieSeries.labels.template.radius = 1;
-    // pieSeries.labels.template.padding(0, 0, 0, 0);
-    // pieSeries.labels.template.bent = true;
+    let rgm = new am4core.RadialGradientModifier();
+    rgm.brightnesses.push(-0.8, -0.8, -0.5, 0, -0.5);
+    pieSeries.slices.template.fillModifier = rgm;
+    pieSeries.slices.template.strokeModifier = rgm;
+    pieSeries.slices.template.strokeOpacity = 0.4;
+    pieSeries.slices.template.strokeWidth = 0;
 
-    // This creates initial animation
-    pieSeries.hiddenState.properties.opacity = 1;
-    pieSeries.hiddenState.properties.endAngle = -90;
-    pieSeries.hiddenState.properties.startAngle = -90;
-
-    chart.hiddenState.properties.radius = am4core.percent(0);
+    chart.legend = new am4charts.Legend();
+    chart.legend.position = "right";
   }
 }

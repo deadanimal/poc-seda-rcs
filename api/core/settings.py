@@ -52,12 +52,12 @@ INSTALLED_APPS = [
     # 'assets',
     'organisations',
     'users',
-    'project',
-    'fail',
-    'activity',
-    'comment',
-    # 'license',
-    # 'api_basic'
+    # 'project',
+    # 'fail',
+    # 'activity',
+    'ecashflowam',
+    'expenses',
+    'income'
     # 'zones'
 ]
 
@@ -144,12 +144,12 @@ USE_TZ = True
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = [
-    # 'https://seda-refund/-lafms-api.pipe.my',
+    'https://seda-rcs-api.pipe.my',
     'http://127.0.0.1',
     'http://localhost'
 ]
 CORS_ORIGIN_REGEX_WHITELIST = [
-    # 'https://seda-refund/-lafms-api.pipe.my',
+    'https://seda-rcs-api.pipe.my',
     'http://127.0.0.1',
     'http://localhost'
 ]

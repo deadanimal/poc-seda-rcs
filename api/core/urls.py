@@ -4,17 +4,23 @@
 # from documents.views import (
 #     DocumentsViewSet
 # )
-from comment.views import (
-    CommentViewSet
+# from comment.views import (
+#     CommentViewSet
+# )
+# from activity.views import (
+#     ActivityViewSet
+# )
+# from fail.views import (
+#     FailViewSet
+# )
+from ecashflowam.views import (
+    EcashflowamViewSet
 )
-from activity.views import (
-    ActivityViewSet
+from expenses.views import (
+    ExpenseViewSet
 )
-from fail.views import (
-    FailViewSet
-)
-from project.views import (
-    ProjectViewSet
+from income.views import (
+    IncomeViewSet
 )
 # Users app
 from organisations.views import (
@@ -50,27 +56,33 @@ class NestedDefaultRouter(NestedRouterMixin, routers.DefaultRouter):
 router = NestedDefaultRouter()
 
 
-comment_router = router.register(
-    'comment', CommentViewSet
+income_router = router.register(
+    'income', IncomeViewSet
+)
+expense_router = router.register(
+    'expenses', ExpenseViewSet
+)
+ecashflowam_router = router.register(
+    'ecashflowam', EcashflowamViewSet
 )
 
-activity_router = router.register(
-    'activity', ActivityViewSet
-)
+# activity_router = router.register(
+#     'activity', ActivityViewSet
+# )
 
 # # documents app
 
 
-fail_router = router.register(
-    'fail', FailViewSet
-)
+# fail_router = router.register(
+#     'fail', FailViewSet
+# )
 
 # # notifications app
 
 
-project_router = router.register(
-    'project', ProjectViewSet
-)
+# project_router = router.register(
+#     'project', ProjectViewSet
+# )
 
 
 # Organisations app

@@ -28,8 +28,8 @@ import { AuthService } from "src/app/shared/services/auth/auth.service";
 import { NotifyService } from "src/app/shared/handler/notify/notify.service";
 import { Router, ActivatedRoute } from "@angular/router";
 
-import { Comment } from "src/app/shared/services/comment/comment.model";
-import { CommentService } from "src/app/shared/services/comment/comment.service";
+// import { Comment } from "src/app/shared/services/ecashflowam/comment.model";
+// import { CommentService } from "src/app/shared/services/ecashflowam/comment.service";
 
 export enum SelectionType {
   single = "single",
@@ -69,7 +69,7 @@ export class CommentDetailsComponent implements OnInit, OnDestroy {
   tableSelected: any[] = [];
   tableTemp = [];
   tableActiveRow: any;
-  tableRows: Comment[] = [];
+  // tableRows: Comment[] = [];
   SelectionType = SelectionType;
   listComment: any;
 
@@ -85,7 +85,7 @@ export class CommentDetailsComponent implements OnInit, OnDestroy {
   editCommentDetailsForm: FormGroup;
 
   constructor(
-    private CommentData: CommentService,
+    // private CommentData: CommentService,
     private notifyService: NotifyService,
     private zone: NgZone,
     private modalService: BsModalService,
@@ -108,71 +108,71 @@ export class CommentDetailsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     console.log(this.proid);
     let field = "project_id=" + this.proid;
-    this.CommentData.filter(field).subscribe((res) => {
-      this.listComment = res;
-      // this.tableRows = [...res];
+    // this.CommentData.filter(field).subscribe((res) => {
+    //   this.listComment = res;
+    //   // this.tableRows = [...res];
 
-      // console.log("data = ", this.listComment);
-      // console.log("Svc: ", this.tableRows);
-    });
+    //   // console.log("data = ", this.listComment);
+    //   // console.log("Svc: ", this.tableRows);
+    // });
     this.getCharts();
   }
 
-  addCommentDetails() {
-    // console.log("qqqq");
-    this.loadingBar.start();
-    this.CommentData.create(this.addCommentDetailsForm.value).subscribe(
-      () => {
-        // Success
-        // this.isLoading = false
-        // this.successMessage();
-        this.loadingBar.complete();
-        this.successAlert("create Comment");
-        window.location.reload();
-      },
-      () => {
-        // Commented
-        // this.isLoading = false
-        // this.successMessage();
-        this.errorAlert("edit");
-      },
-      () => {
-        // After
-        // this.notifyService.openToastr("Success", "Welcome back");
-        // this.navigateHomePage();
-      }
-    );
-  }
+  // addCommentDetails() {
+  //   // console.log("qqqq");
+  //   this.loadingBar.start();
+  //   this.CommentData.create(this.addCommentDetailsForm.value).subscribe(
+  //     () => {
+  //       // Success
+  //       // this.isLoading = false
+  //       // this.successMessage();
+  //       this.loadingBar.complete();
+  //       this.successAlert("create Comment");
+  //       window.location.reload();
+  //     },
+  //     () => {
+  //       // Commented
+  //       // this.isLoading = false
+  //       // this.successMessage();
+  //       this.errorAlert("edit");
+  //     },
+  //     () => {
+  //       // After
+  //       // this.notifyService.openToastr("Success", "Welcome back");
+  //       // this.navigateHomePage();
+  //     }
+  //   );
+  // }
 
-  editCommentDetails() {
-    // console.log("qqqq");
-    this.loadingBar.start();
-    this.CommentData.update(
-      this.editCommentDetailsForm.value.id,
-      this.editCommentDetailsForm.value
-    ).subscribe(
-      () => {
-        // Success
-        // this.isLoading = false
-        // this.successMessage();
-        this.loadingBar.complete();
-        this.successAlert("edit Comment");
-        console.log("asdasdasdsad");
-        window.location.reload();
-      },
-      () => {
-        // Commented
-        // this.isLoading = false
-        // this.successMessage();
-        this.errorAlert("edit");
-      },
-      () => {
-        // After
-        // this.notifyService.openToastr("Success", "Welcome back");
-        // this.navigateHomePage();
-      }
-    );
-  }
+  // editCommentDetails() {
+  //   // console.log("qqqq");
+  //   this.loadingBar.start();
+  //   this.CommentData.update(
+  //     this.editCommentDetailsForm.value.id,
+  //     this.editCommentDetailsForm.value
+  //   ).subscribe(
+  //     () => {
+  //       // Success
+  //       // this.isLoading = false
+  //       // this.successMessage();
+  //       this.loadingBar.complete();
+  //       this.successAlert("edit Comment");
+  //       console.log("asdasdasdsad");
+  //       window.location.reload();
+  //     },
+  //     () => {
+  //       // Commented
+  //       // this.isLoading = false
+  //       // this.successMessage();
+  //       this.errorAlert("edit");
+  //     },
+  //     () => {
+  //       // After
+  //       // this.notifyService.openToastr("Success", "Welcome back");
+  //       // this.navigateHomePage();
+  //     }
+  //   );
+  // }
 
   ngOnDestroy() {
     this.zone.runOutsideAngular(() => {
@@ -260,14 +260,14 @@ export class CommentDetailsComponent implements OnInit, OnDestroy {
 
   filterTable($event) {
     let val = $event.target.value;
-    this.tableTemp = this.tableRows.filter(function (d) {
-      for (var key in d) {
-        if (d[key].toLowerCase().indexOf(val) !== -1) {
-          return true;
-        }
-      }
-      return false;
-    });
+    // this.tableTemp = this.tableRows.filter(function (d) {
+    //   for (var key in d) {
+    //     if (d[key].toLowerCase().indexOf(val) !== -1) {
+    //       return true;
+    //     }
+    //   }
+    //   return false;
+    // });
   }
 
   onSelect({ selected }) {

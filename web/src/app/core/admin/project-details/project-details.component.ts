@@ -37,8 +37,8 @@ import { FailService } from "src/app/shared/services/fail/fail.service";
 import { Activity } from "src/app/shared/services/activity/activity.model";
 import { ActivityService } from "src/app/shared/services/activity/activity.service";
 
-import { Comment } from "src/app/shared/services/comment/comment.model";
-import { CommentService } from "src/app/shared/services/comment/comment.service";
+// import { Comment } from "src/app/shared/services/ecashflowam/comment.model";
+// import { CommentService } from "src/app/shared/services/ecashflowam/comment.service";
 
 export enum SelectionType {
   single = "single",
@@ -97,7 +97,7 @@ export class ProjectDetailsComponent implements OnInit, OnDestroy {
     private projectData: ProjectService,
     private FailData: FailService,
     private ActivityData: ActivityService,
-    private CommentData: CommentService,
+    // private CommentData: CommentService,
     private notifyService: NotifyService,
     private zone: NgZone,
     private modalService: BsModalService,
@@ -248,19 +248,19 @@ export class ProjectDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-  viewComment() {
-    let field = "project_id=" + this.proid;
-    console.log("field = ", field);
-    this.CommentData.filter(field).subscribe((res) => {
-      // this.listProject = res;
-      // this.tableRows = [...res];
-      // console.log("comment data = ", res);
-      // console.log("comment data = ", res[0]["project_id"]);
-      if (res) {
-        this.navigatePage("/admin/comment-details", res[0]["project_id"]);
-      }
-    });
-  }
+  // viewComment() {
+  //   let field = "project_id=" + this.proid;
+  //   console.log("field = ", field);
+  //   this.CommentData.filter(field).subscribe((res) => {
+  //     // this.listProject = res;
+  //     // this.tableRows = [...res];
+  //     // console.log("comment data = ", res);
+  //     // console.log("comment data = ", res[0]["project_id"]);
+  //     if (res) {
+  //       this.navigatePage("/admin/comment-details", res[0]["project_id"]);
+  //     }
+  //   });
+  // }
 
   ngOnDestroy() {
     this.zone.runOutsideAngular(() => {
@@ -354,14 +354,14 @@ export class ProjectDetailsComponent implements OnInit, OnDestroy {
 
   filterTable($event) {
     let val = $event.target.value;
-    this.tableTemp = this.tableRows.filter(function (d) {
-      for (var key in d) {
-        if (d[key].toLowerCase().indexOf(val) !== -1) {
-          return true;
-        }
-      }
-      return false;
-    });
+    // this.tableTemp = this.tableRows.filter(function (d) {
+    //   for (var key in d) {
+    //     if (d[key].toLowerCase().indexOf(val) !== -1) {
+    //       return true;
+    //     }
+    //   }
+    //   return false;
+    // });
   }
 
   onSelect({ selected }) {

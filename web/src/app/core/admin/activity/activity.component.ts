@@ -121,16 +121,36 @@ export class ActivityComponent implements OnInit, OnDestroy {
     // this.getCharts();
 
     this.createExpensesDetailsForm = this.formBuilder.group({
-      name: new FormControl(""),
-      amount: new FormControl(""),
-      created_date: new FormControl(""),
-      modified_date: new FormControl(""),
+      ay_id: new FormControl(""),
+      ay_id_app: new FormControl(""),
+      ay_year_number: new FormControl(""),
+      ay_year: new FormControl(""),
+      ay_generate: new FormControl(""),
+      ay_export: new FormControl(""),
+      ay_daa: new FormControl(""),
+      ay_total_days: new FormControl(""),
+      ay_prorate: new FormControl(""),
+      inf_cre_dt: new FormControl(""),
+      inf_cre_usr: new FormControl(""),
+      inf_mod_dt: new FormControl(""),
+      inf_mod_usr: new FormControl(""),
     });
 
     this.editExpensesDetailsForm = this.formBuilder.group({
       id: new FormControl(""),
-      name: new FormControl(""),
-      amount: new FormControl(""),
+      ay_id: new FormControl(""),
+      ay_id_app: new FormControl(""),
+      ay_year_number: new FormControl(""),
+      ay_year: new FormControl(""),
+      ay_generate: new FormControl(""),
+      ay_export: new FormControl(""),
+      ay_daa: new FormControl(""),
+      ay_total_days: new FormControl(""),
+      ay_prorate: new FormControl(""),
+      inf_cre_dt: new FormControl(""),
+      inf_cre_usr: new FormControl(""),
+      inf_mod_dt: new FormControl(""),
+      inf_mod_usr: new FormControl(""),
       created_date: new FormControl(""),
       modified_date: new FormControl(""),
     });
@@ -165,16 +185,15 @@ export class ActivityComponent implements OnInit, OnDestroy {
   // }
 
   createDetailsFail() {
-    console.log(this.createExpensesDetailsForm);
+    console.log(this.createExpensesDetailsForm.value.amount);
     this.loadingBar.start();
 
-    // const formData = new FormData();
-    // formData.append("name", this.createExpensesDetailsForm.get("name").value);
-    // formData.append("image", this.createExpensesDetailsForm.get("image").value);
-    // formData.append(
-    //   "document",
-    //   this.createExpensesDetailsForm.get("document").value
-    // );
+    let fa =
+      parseInt(this.createExpensesDetailsForm.value.amount) / 20 +
+      parseInt(this.createExpensesDetailsForm.value.amount);
+    this.createExpensesDetailsForm.value.forecast_amount = fa;
+    this.createExpensesDetailsForm.value.forecast_percent = 20.0;
+    console.log(this.createExpensesDetailsForm.value);
 
     this.ExpensesData.create(this.createExpensesDetailsForm.value).subscribe(
       () => {
@@ -182,14 +201,14 @@ export class ActivityComponent implements OnInit, OnDestroy {
         // this.isLoading = false
         // this.successMessage();
         this.loadingBar.complete();
-        this.successAlert("create Fail");
+        this.successAlert("insert income");
         window.location.reload();
       },
       () => {
         // Failed
         // this.isLoading = false
         // this.successMessage();
-        this.errorAlert("edit");
+        this.errorAlert("edit income");
       },
       () => {
         // After
@@ -202,6 +221,14 @@ export class ActivityComponent implements OnInit, OnDestroy {
   editDetailsFail() {
     // console.log("qqqq");
     this.loadingBar.start();
+
+    let fa =
+      parseInt(this.editExpensesDetailsForm.value.amount) / 20 +
+      parseInt(this.editExpensesDetailsForm.value.amount);
+    this.editExpensesDetailsForm.value.forecast_amount = fa;
+    this.editExpensesDetailsForm.value.forecast_percent = 20.0;
+    console.log(this.editExpensesDetailsForm.value);
+
     this.ExpensesData.update(
       this.editExpensesDetailsForm.value.id,
       this.editExpensesDetailsForm.value
@@ -243,13 +270,13 @@ export class ActivityComponent implements OnInit, OnDestroy {
       this.editExpensesDetailsForm.patchValue(row);
       console.log(this.editExpensesDetailsForm.value);
     }
-    // this.modal = this.modalService.show(
-    //   modalRef,
-    //   Object.assign({}, { class: "gray modal-lg" })
-    // );
+    this.modal = this.modalService.show(
+      modalRef,
+      Object.assign({}, { class: "gray modal-lg" })
+    );
     this.modaldata = row;
     console.log(this.modaldata);
-    this.modal = this.modalService.show(modalRef, this.modalConfig);
+    // this.modal = this.modalService.show(modalRef, this.modalConfig);
   }
 
   closeModal() {

@@ -33,8 +33,8 @@ import { FailService } from "src/app/shared/services/fail/fail.service";
 // import { Project } from "src/app/shared/services/project/project.model";
 import { ProjectService } from "src/app/shared/services/project/project.service";
 
-import { Comment } from "src/app/shared/services/comment/comment.model";
-import { CommentService } from "src/app/shared/services/comment/comment.service";
+// import { Comment } from "src/app/shared/services/ecashflowam/comment.model";
+// import { CommentService } from "src/app/shared/services/ecashflowam/comment.service";
 
 export enum SelectionType {
   single = "single",
@@ -74,7 +74,7 @@ export class CommentComponent implements OnInit, OnDestroy {
   tableSelected: any[] = [];
   tableTemp = [];
   tableActiveRow: any;
-  tableRows: Comment[] = [];
+  // tableRows: Comment[] = [];
   SelectionType = SelectionType;
   listComment: any;
   listProject: any;
@@ -86,7 +86,7 @@ export class CommentComponent implements OnInit, OnDestroy {
   commentDetailsEditForm: FormGroup;
 
   constructor(
-    private CommentData: CommentService,
+    // private CommentData: CommentService,
     private projectData: ProjectService,
     private notifyService: NotifyService,
     private zone: NgZone,
@@ -99,19 +99,19 @@ export class CommentComponent implements OnInit, OnDestroy {
   ) {
     // this.getData();
 
-    this.CommentData.getAll().subscribe((res) => {
-      this.listComment = res;
-      this.tableRows = [...res];
+    // this.CommentData.getAll().subscribe((res) => {
+    //   this.listComment = res;
+    //   this.tableRows = [...res];
 
-      console.log("Comment = ", this.listComment);
-      // this.listLicense = this.tableRows.map((proßp, key) => {
-      //   // console.log("test =>", prop, key);
-      //   return {
-      //     ...prop,
-      //     // id: key,
-      //   };
-      // });
-    });
+    //   console.log("Comment = ", this.listComment);
+    //   // this.listLicense = this.tableRows.map((proßp, key) => {
+    //   //   // console.log("test =>", prop, key);
+    //   //   return {
+    //   //     ...prop,
+    //   //     // id: key,
+    //   //   };
+    //   // });
+    // });
 
     this.projectData.getAll().subscribe((res) => {
       this.listProject = res;
@@ -138,61 +138,61 @@ export class CommentComponent implements OnInit, OnDestroy {
     });
   }
 
-  createDetailsComment() {
-    console.log(this.createCommentdetailsform.value);
-    this.loadingBar.start();
-    this.CommentData.create(this.createCommentdetailsform.value).subscribe(
-      () => {
-        // Success
-        // this.isLoading = false
-        // this.successMessage();
-        this.loadingBar.complete();
-        this.successAlert("create Comment");
-        window.location.reload();
-      },
-      () => {
-        // Commented
-        // this.isLoading = false
-        // this.successMessage();
-        this.errorAlert("edit");
-      },
-      () => {
-        // After
-        // this.notifyService.openToastr("Success", "Welcome back");
-        // this.navigateHomePage();
-      }
-    );
-  }
+  // createDetailsComment() {
+  //   console.log(this.createCommentdetailsform.value);
+  //   this.loadingBar.start();
+  //   this.CommentData.create(this.createCommentdetailsform.value).subscribe(
+  //     () => {
+  //       // Success
+  //       // this.isLoading = false
+  //       // this.successMessage();
+  //       this.loadingBar.complete();
+  //       this.successAlert("create Comment");
+  //       window.location.reload();
+  //     },
+  //     () => {
+  //       // Commented
+  //       // this.isLoading = false
+  //       // this.successMessage();
+  //       this.errorAlert("edit");
+  //     },
+  //     () => {
+  //       // After
+  //       // this.notifyService.openToastr("Success", "Welcome back");
+  //       // this.navigateHomePage();
+  //     }
+  //   );
+  // }
 
-  editDetailsComment() {
-    // console.log("qqqq");
-    this.loadingBar.start();
-    this.CommentData.update(
-      this.commentDetailsEditForm.value.id,
-      this.commentDetailsEditForm.value
-    ).subscribe(
-      () => {
-        // Success
-        // this.isLoading = false
-        // this.successMessage();
-        this.loadingBar.complete();
-        this.successAlert("edit Comment");
-        console.log("asdasdasdsad");
-        window.location.reload();
-      },
-      () => {
-        // Commented
-        // this.isLoading = false
-        // this.successMessage();
-        this.errorAlert("edit");
-      },
-      () => {
-        // After
-        // this.notifyService.openToastr("Success", "Welcome back");
-        // this.navigateHomePage();
-      }
-    );
-  }
+  // editDetailsComment() {
+  //   // console.log("qqqq");
+  //   this.loadingBar.start();
+  //   this.CommentData.update(
+  //     this.commentDetailsEditForm.value.id,
+  //     this.commentDetailsEditForm.value
+  //   ).subscribe(
+  //     () => {
+  //       // Success
+  //       // this.isLoading = false
+  //       // this.successMessage();
+  //       this.loadingBar.complete();
+  //       this.successAlert("edit Comment");
+  //       console.log("asdasdasdsad");
+  //       window.location.reload();
+  //     },
+  //     () => {
+  //       // Commented
+  //       // this.isLoading = false
+  //       // this.successMessage();
+  //       this.errorAlert("edit");
+  //     },
+  //     () => {
+  //       // After
+  //       // this.notifyService.openToastr("Success", "Welcome back");
+  //       // this.navigateHomePage();
+  //     }
+  //   );
+  // }
 
   ngOnDestroy() {
     this.zone.runOutsideAngular(() => {
@@ -276,14 +276,14 @@ export class CommentComponent implements OnInit, OnDestroy {
 
   filterTable($event) {
     let val = $event.target.value;
-    this.tableTemp = this.tableRows.filter(function (d) {
-      for (var key in d) {
-        if (d[key].toLowerCase().indexOf(val) !== -1) {
-          return true;
-        }
-      }
-      return false;
-    });
+    // this.tableTemp = this.tableRows.filter(function (d) {
+    //   for (var key in d) {
+    //     if (d[key].toLowerCase().indexOf(val) !== -1) {
+    //       return true;
+    //     }
+    //   }
+    //   return false;
+    // });
   }
 
   onSelect({ selected }) {

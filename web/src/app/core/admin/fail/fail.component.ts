@@ -118,21 +118,47 @@ export class FailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // this.getCharts();
+    this.getCharts();
 
     this.createIncomeDetailsForm = this.formBuilder.group({
-      name: new FormControl(""),
-      amount: new FormControl(""),
-      created_date: new FormControl(""),
-      modified_date: new FormControl(""),
+      ay_id: new FormControl(""),
+      ay_id_app: new FormControl(""),
+      ay_year_number: new FormControl(""),
+      ay_year: new FormControl(""),
+      ay_generate: new FormControl(""),
+      ay_export: new FormControl(""),
+      ay_daa: new FormControl(""),
+      ay_total_days: new FormControl(""),
+      ay_actual_year: new FormControl(""),
+      ay_actual_generate: new FormControl(""),
+      ay_actual_export: new FormControl(""),
+      ay_prorate: new FormControl(""),
+      ay_date: new FormControl(""),
+      inf_cre_dt: new FormControl(""),
+      inf_cre_usr: new FormControl(""),
+      inf_mod_dt: new FormControl(""),
+      inf_mod_usr: new FormControl(""),
     });
 
     this.editIncomeDetailsForm = this.formBuilder.group({
       id: new FormControl(""),
-      name: new FormControl(""),
-      amount: new FormControl(""),
-      created_date: new FormControl(""),
-      modified_date: new FormControl(""),
+      ay_id: new FormControl(""),
+      ay_id_app: new FormControl(""),
+      ay_year_number: new FormControl(""),
+      ay_year: new FormControl(""),
+      ay_generate: new FormControl(""),
+      ay_export: new FormControl(""),
+      ay_daa: new FormControl(""),
+      ay_total_days: new FormControl(""),
+      ay_actual_year: new FormControl(""),
+      ay_actual_generate: new FormControl(""),
+      ay_actual_export: new FormControl(""),
+      ay_prorate: new FormControl(""),
+      ay_date: new FormControl(""),
+      inf_cre_dt: new FormControl(""),
+      inf_cre_usr: new FormControl(""),
+      inf_mod_dt: new FormControl(""),
+      inf_mod_usr: new FormControl(""),
     });
   }
 
@@ -245,13 +271,13 @@ export class FailComponent implements OnInit, OnDestroy {
       this.editIncomeDetailsForm.patchValue(row);
       console.log(this.editIncomeDetailsForm.value);
     }
-    // this.modal = this.modalService.show(
-    //   modalRef,
-    //   Object.assign({}, { class: "gray modal-lg" })
-    // );
+    this.modal = this.modalService.show(
+      modalRef,
+      Object.assign({}, { class: "gray modal-lg" })
+    );
     this.modaldata = row;
-    console.log(this.modaldata);
-    this.modal = this.modalService.show(modalRef, this.modalConfig);
+    // console.log(this.modaldata);
+    // this.modal = this.modalService.show(modalRef, this.modalConfig);
   }
 
   closeModal() {
@@ -341,441 +367,15 @@ export class FailComponent implements OnInit, OnDestroy {
       // this.getChart1();
       // this.getChart2();
       this.getChart3();
-      // this.getChart4();
+      this.getChart4();
       // this.getChart5();
-      this.getChart6();
+      // this.getChart6();
     });
-  }
-
-  getChart() {
-    //chart nate susoh
-    let container = am4core.create("chartdivBillDelivery", am4core.Container);
-    container.layout = "grid";
-    container.fixedWidthGrid = false;
-    container.width = am4core.percent(100);
-    container.height = am4core.percent(100);
-
-    // Color set
-    let colors = new am4core.ColorSet();
-
-    // Functions that create various sparklines
-    function createLine(title, data, color) {
-      let chart = container.createChild(am4charts.XYChart);
-      chart.width = am4core.percent(45);
-      chart.height = 70;
-
-      chart.data = data;
-
-      chart.titles.template.fontSize = 10;
-      chart.titles.template.textAlign = "start";
-      chart.titles.template.isMeasured = false;
-      chart.titles.create().text = title;
-
-      chart.padding(20, 5, 2, 5);
-
-      let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-      dateAxis.renderer.grid.template.disabled = true;
-      dateAxis.renderer.labels.template.disabled = true;
-      dateAxis.startLocation = 0.5;
-      dateAxis.endLocation = 0.7;
-      dateAxis.cursorTooltipEnabled = false;
-
-      let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-      valueAxis.min = 0;
-      valueAxis.renderer.grid.template.disabled = true;
-      valueAxis.renderer.baseGrid.disabled = true;
-      valueAxis.renderer.labels.template.disabled = true;
-      valueAxis.cursorTooltipEnabled = false;
-
-      chart.cursor = new am4charts.XYCursor();
-      chart.cursor.lineY.disabled = true;
-      chart.cursor.behavior = "none";
-
-      let series = chart.series.push(new am4charts.LineSeries());
-      series.tooltipText = "{date}: [bold]{value}";
-      series.dataFields.dateX = "date";
-      series.dataFields.valueY = "value";
-      series.tensionX = 0.8;
-      series.strokeWidth = 2;
-      series.stroke = color;
-
-      // render data points as bullets
-      let bullet = series.bullets.push(new am4charts.CircleBullet());
-      bullet.circle.opacity = 0;
-      bullet.circle.fill = color;
-      bullet.circle.propertyFields.opacity = "opacity";
-      bullet.circle.radius = 3;
-
-      return chart;
-    }
-
-    function createColumn(title, data, color) {
-      let chart = container.createChild(am4charts.XYChart);
-      chart.width = am4core.percent(45);
-      chart.height = 70;
-
-      chart.data = data;
-
-      chart.titles.template.fontSize = 10;
-      chart.titles.template.textAlign = "start";
-      chart.titles.template.isMeasured = false;
-      chart.titles.create().text = title;
-
-      chart.padding(20, 5, 2, 5);
-
-      let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-      dateAxis.renderer.grid.template.disabled = true;
-      dateAxis.renderer.labels.template.disabled = true;
-      dateAxis.cursorTooltipEnabled = false;
-
-      let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-      valueAxis.min = 0;
-      valueAxis.renderer.grid.template.disabled = true;
-      valueAxis.renderer.baseGrid.disabled = true;
-      valueAxis.renderer.labels.template.disabled = true;
-      valueAxis.cursorTooltipEnabled = false;
-
-      chart.cursor = new am4charts.XYCursor();
-      chart.cursor.lineY.disabled = true;
-
-      let series = chart.series.push(new am4charts.ColumnSeries());
-      series.tooltipText = "{date}: [bold]{value}";
-      series.dataFields.dateX = "date";
-      series.dataFields.valueY = "value";
-      series.strokeWidth = 0;
-      series.fillOpacity = 0.5;
-      series.columns.template.propertyFields.fillOpacity = "opacity";
-      series.columns.template.fill = color;
-
-      return chart;
-    }
-
-    function createPie(data, color) {
-      let chart = container.createChild(am4charts.PieChart);
-      chart.width = am4core.percent(10);
-      chart.height = 70;
-      chart.padding(20, 0, 2, 0);
-
-      chart.data = data;
-
-      // Add and configure Series
-      let pieSeries = chart.series.push(new am4charts.PieSeries());
-      pieSeries.dataFields.value = "value";
-      pieSeries.dataFields.category = "category";
-      pieSeries.labels.template.disabled = true;
-      pieSeries.ticks.template.disabled = true;
-      pieSeries.slices.template.fill = color;
-      pieSeries.slices.template.adapter.add("fill", function (
-        fill: any,
-        target
-      ) {
-        return fill.lighten(0.1 * target.dataItem.index);
-      });
-      pieSeries.slices.template.stroke = am4core.color("#fff");
-
-      // chart.chartContainer.minHeight = 40;
-      // chart.chartContainer.minWidth = 40;
-
-      return chart;
-    }
-
-    createLine(
-      "(Price)",
-      [
-        { date: new Date(2018, 0, 1, 8, 0, 0), value: 57 },
-        { date: new Date(2018, 0, 1, 9, 0, 0), value: 27 },
-        { date: new Date(2018, 0, 1, 10, 0, 0), value: 24 },
-        { date: new Date(2018, 0, 1, 11, 0, 0), value: 59 },
-        { date: new Date(2018, 0, 1, 12, 0, 0), value: 33 },
-        { date: new Date(2018, 0, 1, 13, 0, 0), value: 46 },
-        { date: new Date(2018, 0, 1, 14, 0, 0), value: 20 },
-        { date: new Date(2018, 0, 1, 15, 0, 0), value: 42 },
-        { date: new Date(2018, 0, 1, 16, 0, 0), value: 59, opacity: 1 },
-      ],
-      colors.getIndex(0)
-    );
-
-    createColumn(
-      "(Turnover)",
-      [
-        { date: new Date(2018, 0, 1, 8, 0, 0), value: 22 },
-        { date: new Date(2018, 0, 1, 9, 0, 0), value: 25 },
-        { date: new Date(2018, 0, 1, 10, 0, 0), value: 40 },
-        { date: new Date(2018, 0, 1, 11, 0, 0), value: 35 },
-        { date: new Date(2018, 0, 1, 12, 0, 0), value: 29 },
-        { date: new Date(2018, 0, 1, 13, 0, 0), value: 1 },
-        { date: new Date(2018, 0, 1, 14, 0, 0), value: 15 },
-        { date: new Date(2018, 0, 1, 15, 0, 0), value: 29 },
-        { date: new Date(2018, 0, 1, 16, 0, 0), value: 33, opacity: 1 },
-      ],
-      colors.getIndex(0)
-    );
-
-    createPie(
-      [
-        { category: "Marketing", value: 501 },
-        { category: "Research", value: 301 },
-        { category: "Sales", value: 201 },
-        { category: "HR", value: 165 },
-      ],
-      colors.getIndex(0)
-    );
-
-    createLine(
-      "(Price)",
-      [
-        { date: new Date(2018, 0, 1, 8, 0, 0), value: 22 },
-        { date: new Date(2018, 0, 1, 9, 0, 0), value: 25 },
-        { date: new Date(2018, 0, 1, 10, 0, 0), value: 40 },
-        { date: new Date(2018, 0, 1, 11, 0, 0), value: 35 },
-        { date: new Date(2018, 0, 1, 12, 0, 0), value: 29 },
-        { date: new Date(2018, 0, 1, 13, 0, 0), value: 1 },
-        { date: new Date(2018, 0, 1, 14, 0, 0), value: 15 },
-        { date: new Date(2018, 0, 1, 15, 0, 0), value: 29 },
-        { date: new Date(2018, 0, 1, 16, 0, 0), value: 33, opacity: 1 },
-      ],
-      colors.getIndex(1)
-    );
-
-    createColumn(
-      "(Turnover)",
-      [
-        { date: new Date(2018, 0, 1, 8, 0, 0), value: 57 },
-        { date: new Date(2018, 0, 1, 9, 0, 0), value: 27 },
-        { date: new Date(2018, 0, 1, 10, 0, 0), value: 24 },
-        { date: new Date(2018, 0, 1, 11, 0, 0), value: 59 },
-        { date: new Date(2018, 0, 1, 12, 0, 0), value: 33 },
-        { date: new Date(2018, 0, 1, 13, 0, 0), value: 46 },
-        { date: new Date(2018, 0, 1, 14, 0, 0), value: 20 },
-        { date: new Date(2018, 0, 1, 15, 0, 0), value: 42 },
-        { date: new Date(2018, 0, 1, 16, 0, 0), value: 59, opacity: 1 },
-      ],
-      colors.getIndex(1)
-    );
-
-    createPie(
-      [
-        { category: "Data 1", value: 130 },
-        { category: "Data 2", value: 450 },
-        { category: "Data 3", value: 400 },
-        { category: "Data 4", value: 200 },
-      ],
-      colors.getIndex(1)
-    );
-
-    createLine(
-      "(Price)",
-      [
-        { date: new Date(2018, 0, 1, 8, 0, 0), value: 16 },
-        { date: new Date(2018, 0, 1, 9, 0, 0), value: 62 },
-        { date: new Date(2018, 0, 1, 10, 0, 0), value: 55 },
-        { date: new Date(2018, 0, 1, 11, 0, 0), value: 34 },
-        { date: new Date(2018, 0, 1, 12, 0, 0), value: 29 },
-        { date: new Date(2018, 0, 1, 13, 0, 0), value: 29 },
-        { date: new Date(2018, 0, 1, 14, 0, 0), value: 28 },
-        { date: new Date(2018, 0, 1, 15, 0, 0), value: 32 },
-        { date: new Date(2018, 0, 1, 16, 0, 0), value: 30, opacity: 1 },
-      ],
-      colors.getIndex(2)
-    );
-
-    createColumn(
-      "(Turnover)",
-      [
-        { date: new Date(2018, 0, 1, 8, 0, 0), value: 50 },
-        { date: new Date(2018, 0, 1, 9, 0, 0), value: 51 },
-        { date: new Date(2018, 0, 1, 10, 0, 0), value: 62 },
-        { date: new Date(2018, 0, 1, 11, 0, 0), value: 60 },
-        { date: new Date(2018, 0, 1, 12, 0, 0), value: 25 },
-        { date: new Date(2018, 0, 1, 13, 0, 0), value: 20 },
-        { date: new Date(2018, 0, 1, 14, 0, 0), value: 70 },
-        { date: new Date(2018, 0, 1, 15, 0, 0), value: 42 },
-        { date: new Date(2018, 0, 1, 16, 0, 0), value: 33, opacity: 1 },
-      ],
-      colors.getIndex(2)
-    );
-
-    createPie(
-      [
-        { category: "Data 1", value: 220 },
-        { category: "Data 2", value: 200 },
-        { category: "Data 3", value: 150 },
-        { category: "Data 4", value: 125 },
-      ],
-      colors.getIndex(2)
-    );
-
-    // FB
-
-    createLine(
-      "(Price)",
-      [
-        { date: new Date(2018, 0, 1, 8, 0, 0), value: 52 },
-        { date: new Date(2018, 0, 1, 9, 0, 0), value: 55 },
-        { date: new Date(2018, 0, 1, 10, 0, 0), value: 35 },
-        { date: new Date(2018, 0, 1, 11, 0, 0), value: 34 },
-        { date: new Date(2018, 0, 1, 12, 0, 0), value: 39 },
-        { date: new Date(2018, 0, 1, 13, 0, 0), value: 42 },
-        { date: new Date(2018, 0, 1, 14, 0, 0), value: 29 },
-        { date: new Date(2018, 0, 1, 15, 0, 0), value: 22 },
-        { date: new Date(2018, 0, 1, 16, 0, 0), value: 15, opacity: 1 },
-      ],
-      colors.getIndex(3)
-    );
-
-    createColumn(
-      "(Turnover)",
-      [
-        { date: new Date(2018, 0, 1, 8, 0, 0), value: 20 },
-        { date: new Date(2018, 0, 1, 9, 0, 0), value: 20 },
-        { date: new Date(2018, 0, 1, 10, 0, 0), value: 25 },
-        { date: new Date(2018, 0, 1, 11, 0, 0), value: 26 },
-        { date: new Date(2018, 0, 1, 12, 0, 0), value: 29 },
-        { date: new Date(2018, 0, 1, 13, 0, 0), value: 27 },
-        { date: new Date(2018, 0, 1, 14, 0, 0), value: 25 },
-        { date: new Date(2018, 0, 1, 15, 0, 0), value: 32 },
-        { date: new Date(2018, 0, 1, 16, 0, 0), value: 30, opacity: 1 },
-      ],
-      colors.getIndex(3)
-    );
-
-    createPie(
-      [
-        { category: "Data 1", value: 120 },
-        { category: "Data 2", value: 150 },
-        { category: "Data 3", value: 125 },
-        { category: "Data 4", value: 250 },
-      ],
-      colors.getIndex(3)
-    );
-
-    this.chart = container;
-  }
-
-  getChart1() {
-    // chart half circle
-    let chart = am4core.create("chartdivBillDelivery1", am4charts.PieChart);
-    chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
-
-    chart.data = [
-      {
-        item: "Lights",
-        value: 40,
-      },
-      {
-        item: "Fridge",
-        value: 30,
-      },
-      {
-        item: "TV",
-        value: 20,
-      },
-      {
-        item: "Washing Machine",
-        value: 16,
-      },
-    ];
-    chart.radius = am4core.percent(70);
-    chart.innerRadius = am4core.percent(40);
-    chart.startAngle = 180;
-    chart.endAngle = 360;
-
-    let series = chart.series.push(new am4charts.PieSeries());
-    series.dataFields.value = "value";
-    series.dataFields.category = "item";
-    series.ticks.template.disabled = true;
-    series.labels.template.disabled = true;
-
-    series.slices.template.cornerRadius = 10;
-    series.slices.template.innerCornerRadius = 7;
-    series.slices.template.draggable = true;
-    series.slices.template.inert = true;
-    series.alignLabels = false;
-
-    series.hiddenState.properties.startAngle = 90;
-    series.hiddenState.properties.endAngle = 90;
-
-    //chart.legend = new am4charts.Legend();
-  }
-
-  getChart2() {
-    // chart ada gambo org
-    let chart = am4core.create("chartdivBillDelivery2", am4charts.XYChart);
-
-    // Add data
-    chart.data = [
-      {
-        name: "John",
-        points: 35654,
-        color: chart.colors.next(),
-        bullet: "https://www.amcharts.com/lib/images/faces/A04.png",
-      },
-      {
-        name: "Damon",
-        points: 65456,
-        color: chart.colors.next(),
-        bullet: "https://www.amcharts.com/lib/images/faces/C02.png",
-      },
-      {
-        name: "Patrick",
-        points: 45724,
-        color: chart.colors.next(),
-        bullet: "https://www.amcharts.com/lib/images/faces/D02.png",
-      },
-      {
-        name: "Mark",
-        points: 13654,
-        color: chart.colors.next(),
-        bullet: "https://www.amcharts.com/lib/images/faces/E01.png",
-      },
-    ];
-
-    // Create axes
-    let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-    categoryAxis.dataFields.category = "name";
-    categoryAxis.renderer.grid.template.disabled = true;
-    categoryAxis.renderer.minGridDistance = 30;
-    categoryAxis.renderer.inside = true;
-    categoryAxis.renderer.labels.template.fill = am4core.color("#fff");
-    categoryAxis.renderer.labels.template.fontSize = 20;
-
-    let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-    valueAxis.renderer.grid.template.strokeDasharray = "4,4";
-    valueAxis.renderer.labels.template.disabled = true;
-    valueAxis.min = 0;
-
-    // Do not crop bullets
-    chart.maskBullets = false;
-
-    // Remove padding
-    chart.paddingBottom = 0;
-
-    // Create series
-    let series = chart.series.push(new am4charts.ColumnSeries());
-    series.dataFields.valueY = "points";
-    series.dataFields.categoryX = "name";
-    series.columns.template.propertyFields.fill = "color";
-    series.columns.template.propertyFields.stroke = "color";
-    series.columns.template.column.cornerRadiusTopLeft = 15;
-    series.columns.template.column.cornerRadiusTopRight = 15;
-    series.columns.template.tooltipText = "{categoryX}: [bold]{valueY}[/b]";
-
-    // Add bullets
-    let bullet = series.bullets.push(new am4charts.Bullet());
-    let image = bullet.createChild(am4core.Image);
-    image.horizontalCenter = "middle";
-    image.verticalCenter = "bottom";
-    image.dy = 20;
-    image.y = am4core.percent(100);
-    image.propertyFields.href = "bullet";
-    image.tooltipText = series.columns.template.tooltipText;
-    image.propertyFields.fill = "color";
-    image.filters.push(new am4core.DropShadowFilter());
   }
 
   getChart3() {
     // chatt petak warna warni
-    let chart = am4core.create("chartdivBillDelivery3", am4charts.XYChart);
+    let chart = am4core.create("chartfail3", am4charts.XYChart);
     // chart.scrollbarX = new am4core.Scrollbar();
 
     // Add data
@@ -877,122 +477,70 @@ export class FailComponent implements OnInit, OnDestroy {
   getChart4() {
     // chart 2 line
     // let chart = am4core.create("chartReceipt", am4charts.XYChart);
-    let chart = am4core.create("chartdivBillDelivery4", am4charts.XYChart);
+    // Create chart instance
+    let chart = am4core.create("chartfail4", am4charts.PieChart);
 
     // Add data
     chart.data = [
       {
-        month: "Jan",
-        active: 1,
-        inactive: 5,
+        country: "PAHANG",
+        litres: 501.9,
       },
       {
-        month: "Feb",
-        active: 3,
-        inactive: 2,
+        country: "JOHOR",
+        litres: 301.9,
       },
       {
-        month: "Mar",
-        active: 5,
-        inactive: 4,
+        country: "NEGERI SEMBILAN",
+        litres: 201.1,
       },
       {
-        month: "Apr",
-        active: 3,
-        inactive: 3,
+        country: "SELANGOR",
+        litres: 165.8,
       },
       {
-        month: "May",
-        active: 6,
-        inactive: 5,
+        country: "PERAK",
+        litres: 139.9,
       },
       {
-        month: "Jun",
-        active: 2,
-        inactive: 4,
+        country: "SABAH",
+        litres: 128.3,
       },
       {
-        month: "Jul",
-        active: 4,
-        inactive: 3,
+        country: "KELANTAN",
+        litres: 99,
       },
       {
-        month: "Aug",
-        active: 6,
-        inactive: 5,
+        country: "MELAKA",
+        litres: 60,
       },
       {
-        month: "Sep",
-        active: 5,
-        inactive: 4,
-      },
-      {
-        month: "Oct",
-        active: 5,
-        inactive: 5,
-      },
-      {
-        month: "Nov",
-        active: 4,
-        inactive: 5,
-      },
-      {
-        month: "Dec",
-        active: 5,
-        inactive: 6,
+        country: "PULAU PINANG",
+        litres: 50,
       },
     ];
-    // Create category axis
-    let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-    categoryAxis.dataFields.category = "month";
 
-    categoryAxis.renderer.grid.template.location = 0;
-    categoryAxis.renderer.minGridDistance = 30;
-    categoryAxis.renderer.labels.template.horizontalCenter = "right";
-    categoryAxis.renderer.labels.template.verticalCenter = "middle";
-    categoryAxis.renderer.labels.template.rotation = 270;
-    categoryAxis.tooltip.disabled = true;
-    categoryAxis.renderer.minHeight = 110;
-    // categoryAxis.renderer.opposite = true;
+    // Add and configure Series
+    let pieSeries = chart.series.push(new am4charts.PieSeries());
+    pieSeries.dataFields.value = "litres";
+    pieSeries.dataFields.category = "country";
+    pieSeries.slices.template.stroke = am4core.color("#fff");
+    pieSeries.slices.template.strokeWidth = 2;
+    pieSeries.slices.template.strokeOpacity = 1;
 
-    // Create value axis
-    let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-    // valueAxis.renderer.inversed = true;
-    valueAxis.title.text = "File";
-    valueAxis.renderer.minLabelPosition = 0.01;
+    /// change pie size
+    pieSeries.radius = 85;
 
-    // Create series
-    let series1 = chart.series.push(new am4charts.LineSeries());
-    series1.dataFields.valueY = "active";
-    series1.dataFields.categoryX = "month";
-    series1.name = "Downloaded ";
-    series1.strokeWidth = 3;
-    series1.bullets.push(new am4charts.CircleBullet());
-    series1.tooltipText = "Amount {name} in {categoryX}: {valueY}";
-    series1.legendSettings.valueText = "{valueY}";
-    series1.visible = false;
-
-    let series2 = chart.series.push(new am4charts.LineSeries());
-    series2.dataFields.valueY = "inactive";
-    series2.dataFields.categoryX = "month";
-    series2.name = "Generated";
-    series2.strokeWidth = 3;
-    series2.bullets.push(new am4charts.CircleBullet());
-    series2.tooltipText = "Amount {name} in {categoryX}: {valueY}";
-    series2.legendSettings.valueText = "{valueY}";
-
-    // Add chart cursor
-    chart.cursor = new am4charts.XYCursor();
-    chart.cursor.behavior = "zoomY";
-
-    // Add legend
-    chart.legend = new am4charts.Legend();
+    // This creates initial animation
+    pieSeries.hiddenState.properties.opacity = 1;
+    pieSeries.hiddenState.properties.endAngle = -90;
+    pieSeries.hiddenState.properties.startAngle = -90;
   }
 
   getChart5() {
     // chart bar 2 line
     // let chart = am4core.create("chartReceipt", am4charts.XYChart);
-    let chart = am4core.create("chartdivBillDelivery5", am4charts.XYChart);
+    let chart = am4core.create("chartfail5", am4charts.XYChart);
     chart.colors.step = 2;
 
     chart.legend = new am4charts.Legend();
@@ -1127,7 +675,7 @@ export class FailComponent implements OnInit, OnDestroy {
   getChart6() {
     // pie chart
     // let chart = am4core.create("chartReceipt", am4charts.XYChart);
-    let chart = am4core.create("chartdivBillDelivery6", am4charts.PieChart);
+    let chart = am4core.create("chartfail6", am4charts.PieChart);
 
     // Add data
     chart.data = [

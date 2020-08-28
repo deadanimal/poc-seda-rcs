@@ -40,22 +40,22 @@ export const ROUTES: RouteInfo[] = [
     icontype: "fas fa-home text-default",
   },
   {
-    path: "/admin/project",
-    title: "Project",
-    type: "link",
-    icontype: "fas fa-tasks text-default",
-  },
-  {
     path: "/admin/fail",
     title: "Income",
     type: "link",
     icontype: "fas fas fa-newspaper text-default",
   },
+  // {
+  //   path: "/admin/activity",
+  //   title: "Expenses",
+  //   type: "link",
+  //   icontype: "fas fa-archive text-default",
+  // },
   {
-    path: "/admin/activity",
-    title: "Expenses",
+    path: "/admin/project",
+    title: "Business As Usual (BAU)",
     type: "link",
-    icontype: "fas fa-archive text-default",
+    icontype: "fas fa-tasks text-default",
   },
   // {
   //   path: "/admin/comment",
