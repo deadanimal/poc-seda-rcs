@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: seda-rcs-webapp
+  labels:
+    service: seda-rcs-webapp
+  name: seda-rcs-webapp
+spec:
+  selector:
+    app: seda-rcs-webapp
+  ports:
+  - port: 80
+    targetPort: 80

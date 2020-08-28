@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: seda-rcs-my-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "seda-rcs-my-prod"
+spec:
+  tls:
+  - hosts:
+    - seda-rcs.pipe.my #guna prototype.com.my untuk prototype
+    - seda-rcs-api.pipe.my
+
+    secretName: seda-rcs-my-prod
+
+  rules:
+  - host: seda-rcs-api.pipe.my
+    http:
+      paths:
+      - backend:
+          serviceName: seda-rcs-api
+          servicePort: 5000    
+  - host: seda-rcs.pipe.my
+    http:
+      paths:
+      - backend:
+          serviceName: seda-rcs-webapp
+          servicePort: 80    
