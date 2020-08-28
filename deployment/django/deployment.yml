@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: seda-rcs-api-deployment
+  labels:
+    app: seda-rcs-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: seda-rcs-api
+  template:
+    metadata:
+      labels:
+        app: seda-rcs-api
+    spec:
+      containers:
+      - name: seda-rcs-api
+        image: syafiqpipe/seda-rcs-api:1.0.1 #boleh tambah version
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+        envFrom:
+          - secretRef:
+              name: seda-rcs-api-secret
